@@ -1,10 +1,13 @@
 package com.crawler.impl
 
-
 import com.crawler.api.CrawlerService
+import com.crawler.impl.domain.CrawlingService
 import com.lightbend.lagom.scaladsl.akka.discovery.AkkaDiscoveryComponents
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
-import com.lightbend.lagom.scaladsl.server.{LagomApplication, LagomApplicationContext, LagomApplicationLoader, LagomServer}
+import com.lightbend.lagom.scaladsl.server.LagomApplication
+import com.lightbend.lagom.scaladsl.server.LagomApplicationContext
+import com.lightbend.lagom.scaladsl.server.LagomApplicationLoader
+import com.lightbend.lagom.scaladsl.server.LagomServer
 import com.softwaremill.macwire.wire
 import play.api.libs.ws.ahc.AhcWSComponents
 
@@ -22,6 +25,9 @@ abstract class CipherDevApplication(context: LagomApplicationContext)
     with AhcWSComponents {
   override lazy val lagomServer: LagomServer                      = serverFor[CrawlerService](wire[CrawlerServiceImpl])
   lazy val jsonSerializerRegistry: CrawlerSerializerRegistry.type = CrawlerSerializerRegistry
+
+  lazy val crawlingService: CrawlingService = wire[CrawlingService]
+
 }
 
 abstract class CrawlerApplication(context: LagomApplicationContext)
@@ -29,4 +35,7 @@ abstract class CrawlerApplication(context: LagomApplicationContext)
     with AhcWSComponents {
   override lazy val lagomServer: LagomServer                      = serverFor[CrawlerService](wire[CrawlerServiceImpl])
   lazy val jsonSerializerRegistry: CrawlerSerializerRegistry.type = CrawlerSerializerRegistry
+
+  lazy val crawlingService: CrawlingService = wire[CrawlingService]
+
 }

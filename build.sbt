@@ -4,11 +4,14 @@ ThisBuild / scalaVersion := "2.12.4"
 
 val macwire = "com.softwaremill.macwire" %% "macros" % "2.3.2" % "provided"
 val scalaCommon = "com.softwaremill.common" %% "tagging" % "2.2.1"
-val scalaTest = "org.scalatest" %% "scalatest" % "3.0.4" % Test
 val jsonExtensions = "ai.x" %% "play-json-extensions" % "0.10.0"
 val lagomConsul = "lagom-service-locator-scaladsl-consul" %% "lagom-service-locator-scaladsl-consul" % "1.4.0-SNAPSHOT"
 val cats = "org.typelevel" %% "cats-core" % "1.4.0"
 val lagomScaladslAkkaDiscovery = "com.lightbend.lagom" %% "lagom-scaladsl-akka-discovery-service-locator" % "1.5.1"
+val jsoup = "org.jsoup" % "jsoup" % "1.15.1"
+val scalaTest = "org.scalatest" %% "scalatest" % "3.2.10" % Test
+val scalacheck = "org.scalatestplus" %% "scalacheck-1-15" % "3.2.10.0" % "test"
+val scalaMock = "org.scalamock" %% "scalamock" % "5.1.0" % Test
 
 lazy val root = (project in file("."))
   .aggregate(`crawler-common`, `crawler-api`, `crawler-impl`
@@ -67,7 +70,11 @@ lazy val `crawler-impl` = (project in file("crawler-impl"))
       macwire,
       scalaCommon,
       scalaTest,
-      lagomConsul
+      lagomConsul,
+      jsoup,
+      scalaTest,
+      scalaMock,
+      scalacheck
     ),
     updateOptions := updateOptions.value.withCachedResolution(false)
   )
